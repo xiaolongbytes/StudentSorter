@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Student, { StudentData } from './Student';
 
@@ -17,13 +18,22 @@ const ClassRoster: FunctionComponent<{
             </thead>
             <tbody>
                 {students.map((student, index) => (
-                    <Student key={index}
+                    <Student
+                        key={index}
                         student={student}
                         onDelete={(id: number) => {
                             console.log('We should delete student', id);
                         }}
                     />
                 ))}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <Button variant="primary">Add Student</Button>
+                    </td>
+                </tr>
             </tbody>
         </Table>
     );

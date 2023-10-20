@@ -18,7 +18,10 @@ const Student: FunctionComponent<{
             <td>{student.first}</td>
             <td>{student.last}</td>
             <td>
-                <Button onClick={() => onDelete(student.id)} variant="primary">
+                <Button
+                    onClick={() => onDelete(student.id)}
+                    variant="secondary"
+                >
                     Delete
                 </Button>
             </td>
