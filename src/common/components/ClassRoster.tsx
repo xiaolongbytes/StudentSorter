@@ -16,8 +16,8 @@ const ClassRoster: FunctionComponent<{
                 </tr>
             </thead>
             <tbody>
-                {students.map((student) => (
-                    <Student
+                {students.map((student, index) => (
+                    <Student key={index}
                         student={student}
                         onDelete={(id: number) => {
                             console.log('We should delete student', id);

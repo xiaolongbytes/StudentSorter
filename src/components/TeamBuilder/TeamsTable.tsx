@@ -20,8 +20,8 @@ const TeamsTable: FunctionComponent<{
                 </tr>
             </thead>
             <tbody>
-                {teams.map((team) => (
-                    <Team team={team} students={students} />
+                {teams.map((team, index) => (
+                    <Team key={index} team={team} students={students} />
                 ))}
             </tbody>
         </Table>
