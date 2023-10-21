@@ -3,6 +3,7 @@ import * as d3 from "d3"
 import defaultStudents from '../../data/defaultStudents';
 import { StudentData } from '@/common/components/Student';
 import { TeamData } from '@/common/components/Team';
+import exportFromJSON from 'export-from-json'
 
 
 const useStudents = () => {
@@ -85,6 +86,10 @@ const useStudents = () => {
         }
     }
 
+    const updateStudentGroupID = () => {
+        
+    }
+
     const generateTeams = () => {
         let studentsToAdd = JSON.parse(JSON.stringify(students));
         shuffleArray(studentsToAdd)
@@ -98,10 +103,25 @@ const useStudents = () => {
             }
             newTeams[teamID].studentIDs.push(student.id)
         })
+        var newStudents = JSON.parse(JSON.stringify(students));
+        for (let i = 0; i < newTeams.length; i++) {
+            for (let j = 0; j < newTeams[i].studentIDs.length; j++) {
+                newStudents = newStudents.map(student => student.id !== newTeams[i].studentIDs[j] ? student : {...student, groupID: i} )
+            }
+        }
         setTeams(newTeams)
+        setStudents(newStudents)
     }
 
-    return {students, teams, maxPerGroup, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
+    const exportCSV = () => {
+        const data = JSON.parse(JSON.stringify(students));
+        var exportData: { groupID: number, first: string, last: string }[]  = []
+        exportData = data.map(student => ({groupID: student.groupID, first: student.first, last: student.last}))
+        exportData = exportData.sort((a, b) => a.groupID - b.groupID);  
+        exportFromJSON({ data: exportData, fileName: 'data', exportType: exportFromJSON.types.csv })
+    }
+
+    return {students, teams, maxPerGroup, exportCSV, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
 }
 
 export default useStudents

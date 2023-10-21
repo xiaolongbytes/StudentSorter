@@ -9,7 +9,8 @@ import Form from 'react-bootstrap/Form';
 import useStudents from '../../hooks/useStudents'
 
 const TeamBuilder = () => {
-    const { students, teams, maxPerGroup, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload } = useStudents();
+
+    const { students, teams, maxPerGroup, exportCSV, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload } = useStudents();
 
     return (
         <Container>
@@ -40,7 +41,7 @@ const TeamBuilder = () => {
                     <h1>Project Groups</h1>
                 </Col>
                 <Col md="auto">
-                    <Button variant="primary">Export Groups</Button>
+                    <Button variant="primary" onClick={exportCSV}>Export Groups</Button>
                 </Col>
             </Row>
             <Row>
