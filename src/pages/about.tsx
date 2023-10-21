@@ -1,1 +1,3 @@
-export { default } from '@/components/About';
+export default () => {
+    return <h1>Hello, this is an about page</h1>;
+};
