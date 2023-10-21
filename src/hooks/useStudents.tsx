@@ -13,6 +13,8 @@ const useStudents = () => {
     const defaultTeam: TeamData[] = []
     const [teams, setTeams] = useState(defaultTeam);
     const [maxPerGroup, setMaxPerGroup] = useState(3);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
 
     if (typeof window !== "undefined") {
         var fileReader = new window.FileReader()
@@ -40,7 +42,6 @@ const useStudents = () => {
                     setStudents(students)
                 }
             };
-    
             fileReader.readAsText(file);
         }
     }
@@ -57,18 +58,25 @@ const useStudents = () => {
         return newStudents
     }
 
+    const handleFirstName = e => {
+        setFirstName(e.target.value)
+    }
+
+    const handleLastName = e => {
+        setLastName(e.target.value)
+    }
+
     const addStudent = () => {
-        const first = prompt("Enter first name")
-        const last = prompt("Enter first name")
-        const add = confirm("Add student?")
-
-        if (add) {
-            let maxID = students.length > 0 ? students[students.length - 1].id : -1
-            const newStudents = JSON.parse(JSON.stringify(students));
-            newStudents.push({id: maxID + 1, first: first, last: last, teamID: 1})
-            setStudents(newStudents)
+        if (firstName.length < 1 || lastName.length < 1){
+            alert("Please enter a first and last name")
+            return
         }
-
+        let maxID = students.length > 0 ? students[students.length - 1].id : -1
+        const newStudents = JSON.parse(JSON.stringify(students));
+        newStudents.push({id: maxID + 1, first: firstName, last: lastName, teamID: 1})
+        setStudents(newStudents)
+        setFirstName("")
+        setLastName("")
     }
 
     const deleteStudent = id => {
@@ -129,7 +137,20 @@ const useStudents = () => {
         }
     }
 
-    return {students, teams, maxPerGroup, exportCSV, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
+    return {students, 
+            teams, 
+            maxPerGroup, 
+            firstName,
+            lastName,
+            handleFirstName,
+            handleLastName,
+            exportCSV, 
+            addStudent, 
+            setMax, 
+            deleteStudent, 
+            generateTeams, 
+            handleFileUpload, 
+            processCSVUpload}
 }
 
 export default useStudents

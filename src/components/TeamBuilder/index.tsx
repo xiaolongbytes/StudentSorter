@@ -11,15 +11,19 @@ import TeamsUserInput from './TeamsUserInput';
 
 const TeamBuilder = () => {
     const {
-        students,
-        teams,
-        maxPerGroup,
-        exportCSV,
-        addStudent,
-        setMax,
-        deleteStudent,
-        generateTeams,
-        handleFileUpload,
+        students, 
+        teams, 
+        maxPerGroup, 
+        firstName,
+        lastName,
+        handleFirstName,
+        handleLastName,
+        exportCSV, 
+        addStudent, 
+        setMax, 
+        deleteStudent, 
+        generateTeams, 
+        handleFileUpload, 
         processCSVUpload,
     } = useStudents();
 
@@ -58,6 +62,10 @@ const TeamBuilder = () => {
                         students={students}
                         deleteStudent={deleteStudent}
                         addStudent={addStudent}
+                        firstName={firstName}
+                        lastName={lastName}
+                        handleFirstName={handleFirstName}
+                        handleLastName={handleLastName}
                     />
                 </Row>
                 <Row>
