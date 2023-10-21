@@ -7,80 +7,9 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import SeatsUserInput from './SeatUserInput';
-import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import './style.module.css'
-
-// // Fake data for rendering, delete when real data is ready
-// export const students: StudentData[] = [
-//     {
-//         id: 0,
-//         first: 'John',
-//         last: 'Smith',
-//         groupID: 1,
-//     },
-//     {
-//         id: 1,
-//         first: 'John',
-//         last: 'Doe',
-//         groupID: 1,
-//     },
-//     {
-//         id: 2,
-//         first: 'Jane',
-//         last: 'Smith',
-//         groupID: 1,
-//     },
-//     {
-//         id: 3,
-//         first: 'John',
-//         last: 'Jingle Heimershmidt',
-//         groupID: 1,
-//     },
-//     {
-//         id: 4,
-//         first: 'April',
-//         last: 'Wang',
-//         groupID: 1,
-//     },
-//     {
-//         id: 5,
-//         first: 'Jane',
-//         last: 'Smith',
-//         groupID: 1,
-//     },
-//     {
-//         id: 6,
-//         first: 'John',
-//         last: 'Jingle Heimershmidt',
-//         groupID: 1,
-//     },
-//     {
-//         id: 7,
-//         first: 'April',
-//         last: 'Wang',
-//         groupID: 1,
-//     },
-//     {
-//         id: 8,
-//         first: 'Jane',
-//         last: 'Smith',
-//         groupID: 1,
-//     },
-//     {
-//         id: 9,
-//         first: 'John',
-//         last: 'Jingle Heimershmidt',
-//         groupID: 1,
-//     },
-//     {
-//         id: 10,
-//         first: 'April',
-//         last: 'Wang',
-//         groupID: 1,
-//     },
-// ];
 
 
 const SeatBuilder: React.FC = () => {
