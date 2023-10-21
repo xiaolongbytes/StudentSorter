@@ -30,9 +30,15 @@ const useStudents = () => {
                 if (!event.target) return
                 const text = event.target.result;
                 const csvData = d3.csvParse(text);
-    
-                const students: StudentData[] = csvData
-                setStudents(students)
+
+                if (!csvData[0].hasOwnProperty('first') || !csvData[0].hasOwnProperty('last')){
+                    alert("Incorrect CSV format. Make sure the file has a column of first names called \"first\" and last names called \"last\"")
+                }
+
+                else {
+                    const students: StudentData[] = csvData.map((student, i) => ({id: i, first: student.first, last: student.last, groupID: 0}))
+                    setStudents(students)
+                }
             };
     
             fileReader.readAsText(file);
@@ -57,7 +63,7 @@ const useStudents = () => {
         const add = confirm("Add student?")
 
         if (add) {
-            let maxID = students[students.length - 1].id
+            let maxID = students.length > 0 ? students[students.length - 1].id : -1
             const newStudents = JSON.parse(JSON.stringify(students));
             newStudents.push({id: maxID + 1, first: first, last: last, teamID: 1})
             setStudents(newStudents)
@@ -86,10 +92,6 @@ const useStudents = () => {
         }
     }
 
-    const updateStudentGroupID = () => {
-        
-    }
-
     const generateTeams = () => {
         let studentsToAdd = JSON.parse(JSON.stringify(students));
         shuffleArray(studentsToAdd)
@@ -115,10 +117,16 @@ const useStudents = () => {
 
     const exportCSV = () => {
         const data = JSON.parse(JSON.stringify(students));
-        var exportData: { groupID: number, first: string, last: string }[]  = []
-        exportData = data.map(student => ({groupID: student.groupID, first: student.first, last: student.last}))
-        exportData = exportData.sort((a, b) => a.groupID - b.groupID);  
-        exportFromJSON({ data: exportData, fileName: 'data', exportType: exportFromJSON.types.csv })
+        if (data.length < 1){
+            alert("No team data to export. Make sure to populate the class list and generate the teams first.")
+        }
+
+        else {
+            var exportData: { groupID: number, first: string, last: string }[]  = []
+            exportData = data.map(student => ({groupID: student.groupID, first: student.first, last: student.last}))
+            exportData = exportData.sort((a, b) => a.groupID - b.groupID);  
+            exportFromJSON({ data: exportData, fileName: 'data', exportType: exportFromJSON.types.csv })
+        }
     }
 
     return {students, teams, maxPerGroup, exportCSV, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
