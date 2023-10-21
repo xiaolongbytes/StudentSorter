@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
 
 export type StudentData = {
     id: number;
@@ -10,21 +10,30 @@ export type StudentData = {
 
 const Student: FunctionComponent<{
     student: StudentData;
-    
+    onEditStudent: (studentID: number) => void;
     onDelete: (id: number) => void;
-}> = ({ student, onDelete }) => {
+}> = ({ student, onDelete, onEditStudent }) => {
     return (
         <tr>
             <td>{student.id}</td>
             <td>{student.first}</td>
             <td>{student.last}</td>
+            <td></td>
             <td>
-                <Button
-                    onClick={() => onDelete(student.id)}
-                    variant="secondary"
-                >
-                    Delete
-                </Button>
+                <Stack direction="horizontal" gap={3}>
+                    <Button
+                        onClick={() => onEditStudent(student.id)}
+                        variant="secondary"
+                    >
+                        Edit Banned Partners
+                    </Button>
+                    <Button
+                        onClick={() => onDelete(student.id)}
+                        variant="outline-secondary"
+                    >
+                        Delete
+                    </Button>
+                </Stack>
             </td>
         </tr>
     );

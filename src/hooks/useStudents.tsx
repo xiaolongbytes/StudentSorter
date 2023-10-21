@@ -3,6 +3,7 @@ import * as d3 from "d3"
 import defaultStudents from '../../data/defaultStudents';
 import { StudentData } from '@/common/components/Student';
 import { TeamData } from '@/common/components/Team';
+import exportFromJSON from 'export-from-json'
 
 
 const useStudents = () => {
@@ -12,6 +13,8 @@ const useStudents = () => {
     const defaultTeam: TeamData[] = []
     const [teams, setTeams] = useState(defaultTeam);
     const [maxPerGroup, setMaxPerGroup] = useState(3);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
 
     if (typeof window !== "undefined") {
         var fileReader = new window.FileReader()
@@ -29,11 +32,16 @@ const useStudents = () => {
                 if (!event.target) return
                 const text = event.target.result;
                 const csvData = d3.csvParse(text);
-    
-                const students: StudentData[] = csvData
-                setStudents(students)
+
+                if (!csvData[0].hasOwnProperty('first') || !csvData[0].hasOwnProperty('last')){
+                    alert("Incorrect CSV format. Make sure the file has a column of first names called \"first\" and last names called \"last\"")
+                }
+
+                else {
+                    const students: StudentData[] = csvData.map((student, i) => ({id: i, first: student.first, last: student.last, groupID: 0}))
+                    setStudents(students)
+                }
             };
-    
             fileReader.readAsText(file);
         }
     }
@@ -50,18 +58,25 @@ const useStudents = () => {
         return newStudents
     }
 
+    const handleFirstName = e => {
+        setFirstName(e.target.value)
+    }
+
+    const handleLastName = e => {
+        setLastName(e.target.value)
+    }
+
     const addStudent = () => {
-        const first = prompt("Enter first name")
-        const last = prompt("Enter first name")
-        const add = confirm("Add student?")
-
-        if (add) {
-            let maxID = students[students.length - 1].id
-            const newStudents = JSON.parse(JSON.stringify(students));
-            newStudents.push({id: maxID + 1, first: first, last: last, teamID: 1})
-            setStudents(newStudents)
+        if (firstName.length < 1 || lastName.length < 1){
+            alert("Please enter a first and last name")
+            return
         }
-
+        let maxID = students.length > 0 ? students[students.length - 1].id : -1
+        const newStudents = JSON.parse(JSON.stringify(students));
+        newStudents.push({id: maxID + 1, first: firstName, last: lastName, teamID: 1})
+        setStudents(newStudents)
+        setFirstName("")
+        setLastName("")
     }
 
     const deleteStudent = id => {
@@ -98,10 +113,44 @@ const useStudents = () => {
             }
             newTeams[teamID].studentIDs.push(student.id)
         })
+        var newStudents = JSON.parse(JSON.stringify(students));
+        for (let i = 0; i < newTeams.length; i++) {
+            for (let j = 0; j < newTeams[i].studentIDs.length; j++) {
+                newStudents = newStudents.map(student => student.id !== newTeams[i].studentIDs[j] ? student : {...student, groupID: i} )
+            }
+        }
         setTeams(newTeams)
+        setStudents(newStudents)
     }
 
-    return {students, teams, maxPerGroup, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
+    const exportCSV = () => {
+        const data = JSON.parse(JSON.stringify(students));
+        if (data.length < 1){
+            alert("No team data to export. Make sure to populate the class list and generate the teams first.")
+        }
+
+        else {
+            var exportData: { groupID: number, first: string, last: string }[]  = []
+            exportData = data.map(student => ({groupID: student.groupID, first: student.first, last: student.last}))
+            exportData = exportData.sort((a, b) => a.groupID - b.groupID);  
+            exportFromJSON({ data: exportData, fileName: 'data', exportType: exportFromJSON.types.csv })
+        }
+    }
+
+    return {students, 
+            teams, 
+            maxPerGroup, 
+            firstName,
+            lastName,
+            handleFirstName,
+            handleLastName,
+            exportCSV, 
+            addStudent, 
+            setMax, 
+            deleteStudent, 
+            generateTeams, 
+            handleFileUpload, 
+            processCSVUpload}
 }
 
 export default useStudents
