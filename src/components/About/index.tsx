@@ -13,6 +13,10 @@ const About = () => {
         students,
         teams,
         maxPerGroup,
+        firstName,
+        lastName,
+        handleFirstName,
+        handleLastName,
         addStudent,
         setMax,
         deleteStudent,
@@ -56,6 +60,10 @@ const About = () => {
                         students={students}
                         deleteStudent={deleteStudent}
                         addStudent={addStudent}
+                        firstName={firstName}
+                        lastName={lastName}
+                        handleFirstName={handleFirstName}
+                        handleLastName={handleLastName}
                     />
                 </Col>
                 <Col>

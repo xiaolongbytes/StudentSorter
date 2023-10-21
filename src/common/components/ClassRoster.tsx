@@ -13,7 +13,7 @@ const ClassRoster: FunctionComponent<{
     lastName: string;
     handleFirstName: (e) => void;
     handleLastName: (e) => void;
-}> = ({ students, deleteStudent, addStudent, firstName, lastName, handleFirstName, handleLastName }) => {
+}> = ({ students, deleteStudent, addStudent, firstName, lastName, handleFirstName, handleLastName}) => {
     const [currentlyEditedStudentID, setCurrentlyEditedStudentID] = useState<
         number | null
     >(null);
@@ -36,6 +36,8 @@ const ClassRoster: FunctionComponent<{
             (student) => student.id === currentlyEditedStudentID,
         );
     }, [currentlyEditedStudentID]);
+
+    
     return (
         <>
             {currentlyEditedStudent !== undefined && (
@@ -43,7 +45,7 @@ const ClassRoster: FunctionComponent<{
                     currentlyEditedStudent={
                         currentlyEditedStudent as StudentData
                     }
-                    students={students}
+                    students={students.filter(student => student.id !== currentlyEditedStudent.id)}
                     isOpen={currentlyEditedStudentID !== null}
                     onCancel={onCancel}
                     onSave={onSave}
@@ -56,17 +58,9 @@ const ClassRoster: FunctionComponent<{
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Banned Partners</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td>John</td>
-                        <td>Smith</td>
-                        <td>Jane Smith, Smith Jones</td>
-                        <td>(Example)</td>
-                    </tr>
                     {students.map((student, index) => (
                         <Student
                             key={index}
@@ -91,10 +85,6 @@ const ClassRoster: FunctionComponent<{
                         </td>
                         <td>
                             <Form.Control type="text" placeholder="Last Name" value={lastName} onChange={handleLastName} />
-                        </td>
-                        <td>
-                            Add Banned Partners with the <br /> "Edit" button
-                            after adding student
                         </td>
                         <td>
                             <Button variant="primary" onClick={addStudent}>
