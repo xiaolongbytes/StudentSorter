@@ -1,5 +1,7 @@
 import RosterTable from '@/common/components/ClassRoster';
 import { StudentData } from '@/common/components/Student';
+import useStudents from '@/hooks/useStudents';
+import { Form, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -41,19 +43,38 @@ export const students: StudentData[] = [
 ];
 
 const SeatBuilder = () => {
+    const { addStudent, deleteStudent, handleFileUpload, processCSVUpload } =
+        useStudents();
+
     return (
         <Container>
             <Row>
                 <Col md="auto">
-                    <h1>Class Roster</h1>
+                    <h1>Class List</h1>
                 </Col>
                 <Col md="auto">
-                    <Button variant="primary">Import Roster</Button>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            type="file"
+                            accept=".csv"
+                            onChange={handleFileUpload}
+                        />
+                        <Button
+                            variant="outline-primary"
+                            onClick={(e) => processCSVUpload(e)}
+                        >
+                            Upload CSV
+                        </Button>
+                    </InputGroup>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <RosterTable students={students} />
+                    <RosterTable
+                        students={students}
+                        deleteStudent={deleteStudent}
+                        addStudent={addStudent}
+                    />
                 </Col>
                 <Col>
                     <SeatsUserInput />
