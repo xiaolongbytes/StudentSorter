@@ -9,9 +9,8 @@ import Form from 'react-bootstrap/Form';
 import useStudents from '../../hooks/useStudents'
 
 const TeamBuilder = () => {
-    const { students, teams, maxPerGroup, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload } = useStudents();
+    const { students, teams, maxPerGroup, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload } = useStudents();
 
-    console.log(teams)
     return (
         <Container>
             <Row>
@@ -30,7 +29,7 @@ const TeamBuilder = () => {
             </Row>
             <Row>
                 <Col>
-                    <RosterTable students={students} deleteStudent={deleteStudent} />
+                    <RosterTable students={students} deleteStudent={deleteStudent} addStudent={addStudent} />
                 </Col>
                 <Col>
                     <TeamsUserInput maxPerGroup={maxPerGroup} setMax={setMax} generateTeams={generateTeams} />
@@ -45,7 +44,7 @@ const TeamBuilder = () => {
                 </Col>
             </Row>
             <Row>
-                <TeamsTable students={students} teams={teams} />
+                <TeamsTable students={students} teams={teams}/>
             </Row>
         </Container>
     );

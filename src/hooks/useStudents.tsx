@@ -38,8 +38,36 @@ const useStudents = () => {
         }
     }
 
+    const mapStudents = students => {
+        const newStudents = students.map((student, i) => {
+            return {
+                id: i,
+                first: student.first,
+                last: student.last,
+                groupID: student.groupID
+            } 
+        })
+        return newStudents
+    }
+
+    const addStudent = () => {
+        const first = prompt("Enter first name")
+        const last = prompt("Enter first name")
+        const add = confirm("Add student?")
+
+        if (add) {
+            let maxID = students[students.length - 1].id
+            const newStudents = JSON.parse(JSON.stringify(students));
+            newStudents.push({id: maxID + 1, first: first, last: last, teamID: 1})
+            setStudents(newStudents)
+        }
+
+    }
+
     const deleteStudent = id => {
-        setStudents(students.filter(student => student.id !== id))
+        let newStudents = students.filter(student => student.id !== id)
+        newStudents = mapStudents(newStudents)
+        setStudents(newStudents)
     }
 
     const setMax = e => {
@@ -73,7 +101,7 @@ const useStudents = () => {
         setTeams(newTeams)
     }
 
-    return {students, teams, maxPerGroup, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
+    return {students, teams, maxPerGroup, addStudent, setMax, deleteStudent, generateTeams, handleFileUpload, processCSVUpload}
 }
 
 export default useStudents
