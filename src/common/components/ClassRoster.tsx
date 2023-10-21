@@ -9,7 +9,11 @@ const ClassRoster: FunctionComponent<{
     students: StudentData[];
     deleteStudent: (id) => void;
     addStudent: () => void;
-}> = ({ students, deleteStudent, addStudent }) => {
+    firstName: string;
+    lastName: string;
+    handleFirstName: (e) => void;
+    handleLastName: (e) => void;
+}> = ({ students, deleteStudent, addStudent, firstName, lastName, handleFirstName, handleLastName }) => {
     const [currentlyEditedStudentID, setCurrentlyEditedStudentID] = useState<
         number | null
     >(null);
@@ -81,10 +85,12 @@ const ClassRoster: FunctionComponent<{
                             <Form.Control
                                 type="text"
                                 placeholder="First Name"
+                                value={firstName}
+                                onChange={handleFirstName}
                             />
                         </td>
                         <td>
-                            <Form.Control type="text" placeholder="Last Name" />
+                            <Form.Control type="text" placeholder="Last Name" value={lastName} onChange={handleLastName} />
                         </td>
                         <td>
                             Add Banned Partners with the <br /> "Edit" button
