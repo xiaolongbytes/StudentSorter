@@ -6,7 +6,8 @@ import Student, { StudentData } from './Student';
 const ClassRoster: FunctionComponent<{
     students: StudentData[];
     deleteStudent: (id) => void;
-}> = ({ students, deleteStudent }) => {
+    addStudent: () => void;
+}> = ({ students, deleteStudent, addStudent}) => {
     return (
         <Table striped bordered hover size="sm">
             <thead>
@@ -32,7 +33,7 @@ const ClassRoster: FunctionComponent<{
                     <td></td>
                     <td></td>
                     <td>
-                        <Button variant="primary">Add Student</Button>
+                        <Button variant="primary" onClick={addStudent}>Add Student</Button>
                     </td>
                 </tr>
             </tbody>
