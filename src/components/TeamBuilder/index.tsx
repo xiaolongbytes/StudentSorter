@@ -6,10 +6,10 @@ import Row from 'react-bootstrap/Row';
 import TeamsTable from './TeamsTable';
 import TeamsUserInput from './TeamsUserInput';
 import Form from 'react-bootstrap/Form';
-import useCSV from './helpers/useCSV'
+import useStudents from './helpers/useStudents'
 
 const TeamBuilder = () => {
-    const { students, handleFileUpload, processCSVUpload } = useCSV();
+    const { students, handleFileUpload, processCSVUpload } = useStudents();
     return (
         <Container>
             <Row>
