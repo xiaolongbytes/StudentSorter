@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import useStudents from './helpers/useStudents'
 
 const TeamBuilder = () => {
-    const { students, handleFileUpload, processCSVUpload } = useStudents();
+    const { students, deleteStudent, handleFileUpload, processCSVUpload } = useStudents();
     return (
         <Container>
             <Row>
@@ -28,7 +28,7 @@ const TeamBuilder = () => {
             </Row>
             <Row>
                 <Col>
-                    <RosterTable students={students} />
+                    <RosterTable students={students} deleteStudent={deleteStudent} />
                 </Col>
                 <Col>
                     <TeamsUserInput />
