@@ -11,19 +11,19 @@ import TeamsUserInput from './TeamsUserInput';
 
 const TeamBuilder = () => {
     const {
-        students, 
-        teams, 
-        maxPerGroup, 
+        students,
+        teams,
+        maxPerGroup,
         firstName,
         lastName,
         handleFirstName,
         handleLastName,
-        exportCSV, 
-        addStudent, 
-        setMax, 
-        deleteStudent, 
-        generateTeams, 
-        handleFileUpload, 
+        exportCSV,
+        addStudent,
+        setMax,
+        deleteStudent,
+        generateTeams,
+        handleFileUpload,
         processCSVUpload,
     } = useStudents();
 
@@ -42,7 +42,7 @@ const TeamBuilder = () => {
                                 onChange={handleFileUpload}
                             />
                             <Button
-                                variant="outline-primary"
+                                variant="primary"
                                 onClick={(e) => processCSVUpload(e)}
                             >
                                 Upload CSV

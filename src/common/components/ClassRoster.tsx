@@ -13,7 +13,15 @@ const ClassRoster: FunctionComponent<{
     lastName: string;
     handleFirstName: (e) => void;
     handleLastName: (e) => void;
-}> = ({ students, deleteStudent, addStudent, firstName, lastName, handleFirstName, handleLastName }) => {
+}> = ({
+    students,
+    deleteStudent,
+    addStudent,
+    firstName,
+    lastName,
+    handleFirstName,
+    handleLastName,
+}) => {
     const [currentlyEditedStudentID, setCurrentlyEditedStudentID] = useState<
         number | null
     >(null);
@@ -60,13 +68,6 @@ const ClassRoster: FunctionComponent<{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td>John</td>
-                        <td>Smith</td>
-                        <td>Jane Smith, Smith Jones</td>
-                        <td>(Example)</td>
-                    </tr>
                     {students.map((student, index) => (
                         <Student
                             key={index}
@@ -90,14 +91,19 @@ const ClassRoster: FunctionComponent<{
                             />
                         </td>
                         <td>
-                            <Form.Control type="text" placeholder="Last Name" value={lastName} onChange={handleLastName} />
+                            <Form.Control
+                                type="text"
+                                placeholder="Last Name"
+                                value={lastName}
+                                onChange={handleLastName}
+                            />
                         </td>
+                        <td></td>
                         <td>
-                            Add Banned Partners with the <br /> "Edit" button
-                            after adding student
-                        </td>
-                        <td>
-                            <Button variant="primary" onClick={addStudent}>
+                            <Button
+                                variant="outline-primary"
+                                onClick={addStudent}
+                            >
                                 Add Student
                             </Button>
                         </td>

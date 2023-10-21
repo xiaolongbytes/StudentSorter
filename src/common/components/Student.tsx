@@ -29,7 +29,7 @@ const Student: FunctionComponent<{
                     </Button>
                     <Button
                         onClick={() => onDelete(student.id)}
-                        variant="outline-secondary"
+                        variant="outline-danger"
                     >
                         Delete
                     </Button>
