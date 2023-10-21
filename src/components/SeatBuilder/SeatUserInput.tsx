@@ -1,20 +1,19 @@
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-const SeatsUserInput = () => {
-    return (
-        <Form>
-            <Form.Group className="mb-3" controlId="SeatRows">
-                <Form.Label>Rows of Seats</Form.Label>
-                <Form.Control placeholder="4" />
-            </Form.Group>
+interface SeatsUserInputProps {
+    setNumColumns: React.Dispatch<React.SetStateAction<number>>;
+}
 
-            <Form.Group className="mb-3" controlId="SeatColumns">
-                <Form.Label>Columns of Seats</Form.Label>
-                <Form.Control placeholder="5" />
-            </Form.Group>
-            <Button>Generate Seating Chart</Button>
-        </Form>
+const SeatsUserInput: React.FC<SeatsUserInputProps> = ({ setNumColumns }) => {
+    return (
+        <Form.Group>
+            <Form.Label>Number of Columns:</Form.Label>
+            <Form.Control
+                type="number"
+                onChange={(e) => setNumColumns(parseInt(e.target.value, 10))}
+            />
+        </Form.Group>
     );
 };
 

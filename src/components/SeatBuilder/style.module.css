@@ -1,0 +1,13 @@
+.seatingColumn {
+    background-color: #f0f0f0; 
+    border-radius: 8px; 
+    padding: 10px;
+}
+.studentBox {
+    background-color: #b7b4b4; 
+    border: 1px solid #000000; 
+    border-radius: 5px; 
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
