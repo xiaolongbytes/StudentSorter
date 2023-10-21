@@ -10,6 +10,7 @@ export type StudentData = {
 
 const Student: FunctionComponent<{
     student: StudentData;
+    
     onDelete: (id: number) => void;
 }> = ({ student, onDelete }) => {
     return (

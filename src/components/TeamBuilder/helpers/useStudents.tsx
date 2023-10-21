@@ -33,7 +33,11 @@ const useStudents = () => {
         }
     }
 
-    return {students, handleFileUpload, processCSVUpload}
+    const deleteStudent = id => {
+        setStudents(students.filter(student => student.id !== id))
+    }
+
+    return {students, deleteStudent, handleFileUpload, processCSVUpload}
 }
 
 export default useStudents

@@ -5,7 +5,8 @@ import Student, { StudentData } from './Student';
 
 const ClassRoster: FunctionComponent<{
     students: StudentData[];
-}> = ({ students }) => {
+    deleteStudent: (id) => void;
+}> = ({ students, deleteStudent }) => {
     return (
         <Table striped bordered hover size="sm">
             <thead>
@@ -22,7 +23,7 @@ const ClassRoster: FunctionComponent<{
                         key={index}
                         student={student}
                         onDelete={(id: number) => {
-                            console.log('We should delete student', id);
+                            deleteStudent(id)
                         }}
                     />
                 ))}
