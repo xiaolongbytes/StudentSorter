@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as d3 from "d3"
-import defaultStudents from './defaultStudents';
+import defaultStudents from '../../data/defaultStudents';
 import { StudentData } from '@/common/components/Student';
 
 
