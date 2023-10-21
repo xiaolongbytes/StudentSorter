@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
+import SelectStudent from './SelectStudent';
 import { StudentData } from './Student';
 
 const BannedPartnerModal: FunctionComponent<{
@@ -33,17 +34,12 @@ const BannedPartnerModal: FunctionComponent<{
                             <th></th>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td>John</td>
-                            <td>Smith</td>
-                            <td>Jane Smith, Smith Jones</td>
-                            <td>(Example)</td>
-                        </tr>
+                        {students.map((student, index) => (
+                            <SelectStudent key={index} student={student} />
+                        ))}
                     </tbody>
                 </Table>
             </Modal.Body>
