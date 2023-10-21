@@ -1,5 +1,5 @@
 import RosterTable from '@/common/components/ClassRoster';
-import { InputGroup } from 'react-bootstrap';
+import { InputGroup, Stack } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -24,64 +24,66 @@ const TeamBuilder = () => {
     } = useStudents();
 
     return (
-        <Container>
-            <Row>
-                <Col md="auto">
-                    <h1>Class List</h1>
-                </Col>
-                <Col md="auto">
-                    <InputGroup className="mb-3">
-                        <Form.Control
-                            type="file"
-                            accept=".csv"
-                            onChange={handleFileUpload}
-                        />
-                        <Button
-                            variant="outline-primary"
-                            onClick={(e) => processCSVUpload(e)}
-                        >
-                            Upload CSV
-                        </Button>
-                    </InputGroup>
-                    {/* <Form>
+        <Stack gap={4}>
+            <Container>
+                <Row>
+                    <Col md="auto">
+                        <h1>Class List</h1>
+                    </Col>
+                    <Col md="auto">
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                type="file"
+                                accept=".csv"
+                                onChange={handleFileUpload}
+                            />
+                            <Button
+                                variant="outline-primary"
+                                onClick={(e) => processCSVUpload(e)}
+                            >
+                                Upload CSV
+                            </Button>
+                        </InputGroup>
+                        {/* <Form>
                     <Form.Group>
                         <Form.Label></Form.Label>
                         <Form.Control type="file" accept=".csv" onChange={handleFileUpload}/>
                     </Form.Group>
                     <Button variant="primary" onClick={(e) => processCSVUpload(e)}>Upload CSV</Button>
                 </Form> */}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
+                    </Col>
+                </Row>
+                <Row>
                     <RosterTable
                         students={students}
                         deleteStudent={deleteStudent}
                         addStudent={addStudent}
                     />
-                </Col>
-                <Col>
+                </Row>
+                <Row>
                     <TeamsUserInput
                         maxPerGroup={maxPerGroup}
                         setMax={setMax}
                         generateTeams={generateTeams}
                     />
-                </Col>
-            </Row>
-            <Row>
-                <Col md="auto">
-                    <h1>Project Groups</h1>
-                </Col>
-                <Col md="auto">
-                    <Button variant="primary" onClick={exportCSV}>
-                        Export Groups
-                    </Button>
-                </Col>
-            </Row>
-            <Row>
-                <TeamsTable students={students} teams={teams} />
-            </Row>
-        </Container>
+                </Row>
+            </Container>
+            <Container>
+                <Row>
+                    <Col md="auto">
+                        <h1>Project Groups</h1>
+                    </Col>
+                    <Col md="auto">
+                        <Button variant="primary" onClick={exportCSV}>
+                            Export Groups
+                        </Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <TeamsTable students={students} teams={teams} />
+                </Row>
+            </Container>
+        </Stack>
     );
 };
 
