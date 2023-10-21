@@ -3,20 +3,16 @@ import Team, { TeamData } from '@/common/components/Team';
 import { FunctionComponent } from 'react';
 import Table from 'react-bootstrap/Table';
 
-const teams: TeamData[] = [
-    { id: 0, studentIDs: [0, 1] },
-    { id: 1, studentIDs: [2, 3] },
-];
-
 const TeamsTable: FunctionComponent<{
     students: StudentData[];
-}> = ({ students }) => {
+    teams: TeamData[];
+}> = ({ students, teams }) => {
     return (
         <Table striped bordered hover size="sm">
             <thead>
                 <tr>
-                    <th>Team #</th>
-                    <th>Team Members</th>
+                    <th>Group #</th>
+                    <th>Group Members</th>
                 </tr>
             </thead>
             <tbody>
