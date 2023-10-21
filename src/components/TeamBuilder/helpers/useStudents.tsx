@@ -4,7 +4,7 @@ import defaultStudents from './defaultStudents';
 import { StudentData } from '@/common/components/Student';
 
 
-const useCSV = () => {
+const useStudents = () => {
     const [file, setFile] = useState();
     const [students, setStudents] = useState(defaultStudents);
 
@@ -36,5 +36,5 @@ const useCSV = () => {
     return {students, handleFileUpload, processCSVUpload}
 }
 
-export default useCSV
+export default useStudents
 
