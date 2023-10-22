@@ -118,27 +118,32 @@ const useStudents = () => {
     const generateTeams = () => {
         let studentsToAdd = JSON.parse(JSON.stringify(students));
         shuffleArray(studentsToAdd)
-        let teamID = 0
         const newTeams: { id: number, studentIDs: number[] }[]  = [{id: 0, studentIDs: []}]
-        const studentsNotMapped: StudentData[] = [];
-        
-        studentsToAdd.forEach(student => {
-            if (newTeams[teamID].studentIDs.length >= maxPerGroup){
-                teamID += 1
-                newTeams.push({id: teamID, studentIDs: []})
-            }
 
-            let flag = false
-            newTeams[teamID].studentIDs.forEach(studentID => {
-                if (student.bannedList.includes(studentID)){
-                    flag = true
+        while (studentsToAdd.length > 0){
+            const toAdd = studentsToAdd[studentsToAdd.length - 1]
+            let added = false
+
+            newTeams.forEach(team => {
+                const currTeamStudents = team.studentIDs
+                if (currTeamStudents.length < maxPerGroup){
+                    let flag = false
+                    currTeamStudents.forEach(studentID => {
+                        if (toAdd.bannedList.includes(studentID)){
+                            flag = true
+                        }
+                    })
+                    if (flag === false && added === false){
+                        currTeamStudents.push(studentsToAdd.pop().id)
+                        added = true
+                    }
                 }
             })
-
-            if (flag === false) newTeams[teamID].studentIDs.push(student.id)
-            else studentsNotMapped.push(student)
-        })
-
+            if (added === false){
+                newTeams.push({id: newTeams.length, studentIDs: []})
+                newTeams[newTeams.length - 1].studentIDs.push(toAdd.id)
+            }
+        }
 
         var newStudents = JSON.parse(JSON.stringify(students));
         for (let i = 0; i < newTeams.length; i++) {
