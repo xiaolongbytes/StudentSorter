@@ -65,7 +65,7 @@ const useStudents = () => {
                 }
 
                 else {
-                    const students: StudentData[] = csvData.map((student, i) => ({id: i, first: student.first, last: student.last, groupID: 0}))
+                    const students: StudentData[] = csvData.map((student, i) => ({id: i, first: student.first, last: student.last, groupID: 0, bannedList: []}))
                     setStudents(students)
                 }
             };
