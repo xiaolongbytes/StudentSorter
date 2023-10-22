@@ -44,6 +44,7 @@ const ClassRoster: FunctionComponent<{
             (student) => student.id === currentlyEditedStudentID,
         );
     }, [currentlyEditedStudentID]);
+
     return (
         <>
             {currentlyEditedStudent !== undefined && (
@@ -51,7 +52,9 @@ const ClassRoster: FunctionComponent<{
                     currentlyEditedStudent={
                         currentlyEditedStudent as StudentData
                     }
-                    students={students}
+                    students={students.filter(
+                        (student) => student.id !== currentlyEditedStudent.id,
+                    )}
                     isOpen={currentlyEditedStudentID !== null}
                     onCancel={onCancel}
                     onSave={onSave}
@@ -64,7 +67,6 @@ const ClassRoster: FunctionComponent<{
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Banned Partners</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

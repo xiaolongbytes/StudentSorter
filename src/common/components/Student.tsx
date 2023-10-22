@@ -6,6 +6,7 @@ export type StudentData = {
     first: string;
     last: string;
     groupID: number;
+    bannedList: number[];
 };
 
 const Student: FunctionComponent<{
@@ -18,7 +19,6 @@ const Student: FunctionComponent<{
             <td>{student.id}</td>
             <td>{student.first}</td>
             <td>{student.last}</td>
-            <td></td>
             <td>
                 <Stack direction="horizontal" gap={3}>
                     <Button

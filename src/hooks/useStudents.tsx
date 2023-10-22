@@ -7,9 +7,22 @@ import exportFromJSON from 'export-from-json'
 
 
 const useStudents = () => {
+
+    const mapStudents = students => {
+        const newStudents = students.map((student, i) => {
+            return {
+                id: i,
+                first: student.first,
+                last: student.last,
+                groupID: student.groupID ? student.groupID : 0,
+                bannedList: student.bannedList ? student.bannedList : [],
+            } 
+        })
+        return newStudents
+    }
     
     const [file, setFile] = useState();
-    const [students, setStudents] = useState(defaultStudents);
+    const [students, setStudents] = useState(mapStudents(defaultStudents));
     const defaultTeam: TeamData[] = []
     const [teams, setTeams] = useState(defaultTeam);
     const [maxPerGroup, setMaxPerGroup] = useState(3);
@@ -18,6 +31,20 @@ const useStudents = () => {
 
     if (typeof window !== "undefined") {
         var fileReader = new window.FileReader()
+    }
+
+    const handleBannedToggle = (e, currentlyEditedStudent, student) => {
+
+        if (e.target.checked){
+            currentlyEditedStudent.bannedList.push(student.id)
+            student.bannedList.push(currentlyEditedStudent.id)
+        }
+        else {
+            currentlyEditedStudent.bannedList = currentlyEditedStudent.bannedList.filter(id => id !== student.id)
+            student.bannedList = student.bannedList.filter(id => id !== currentlyEditedStudent.id)
+        }
+        const updatedStudents = students.map(student => student.id !== currentlyEditedStudent.id ? student : currentlyEditedStudent)
+        setStudents(updatedStudents)
     }
 
     const handleFileUpload = e  => {
@@ -46,18 +73,6 @@ const useStudents = () => {
         }
     }
 
-    const mapStudents = students => {
-        const newStudents = students.map((student, i) => {
-            return {
-                id: i,
-                first: student.first,
-                last: student.last,
-                groupID: student.groupID
-            } 
-        })
-        return newStudents
-    }
-
     const handleFirstName = e => {
         setFirstName(e.target.value)
     }
@@ -73,7 +88,7 @@ const useStudents = () => {
         }
         let maxID = students.length > 0 ? students[students.length - 1].id : -1
         const newStudents = JSON.parse(JSON.stringify(students));
-        newStudents.push({id: maxID + 1, first: firstName, last: lastName, teamID: 1})
+        newStudents.push({id: maxID + 1, first: firstName, last: lastName, teamID: 1, bannedList: []})
         setStudents(newStudents)
         setFirstName("")
         setLastName("")
@@ -105,14 +120,26 @@ const useStudents = () => {
         shuffleArray(studentsToAdd)
         let teamID = 0
         const newTeams: { id: number, studentIDs: number[] }[]  = [{id: 0, studentIDs: []}]
+        const studentsNotMapped: StudentData[] = [];
         
         studentsToAdd.forEach(student => {
             if (newTeams[teamID].studentIDs.length >= maxPerGroup){
                 teamID += 1
                 newTeams.push({id: teamID, studentIDs: []})
             }
-            newTeams[teamID].studentIDs.push(student.id)
+
+            let flag = false
+            newTeams[teamID].studentIDs.forEach(studentID => {
+                if (student.bannedList.includes(studentID)){
+                    flag = true
+                }
+            })
+
+            if (flag === false) newTeams[teamID].studentIDs.push(student.id)
+            else studentsNotMapped.push(student)
         })
+
+
         var newStudents = JSON.parse(JSON.stringify(students));
         for (let i = 0; i < newTeams.length; i++) {
             for (let j = 0; j < newTeams[i].studentIDs.length; j++) {
@@ -150,7 +177,8 @@ const useStudents = () => {
             deleteStudent, 
             generateTeams, 
             handleFileUpload, 
-            processCSVUpload}
+            processCSVUpload,
+            handleBannedToggle}
 }
 
 export default useStudents
