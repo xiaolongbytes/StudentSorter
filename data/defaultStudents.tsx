@@ -6,36 +6,29 @@ const defaultStudents: StudentData[] = [
         first: 'John',
         last: 'Smith',
         groupID: 0,
-        bannedList: []
+        bannedList: [],
     },
     {
         id: 1,
         first: 'John',
         last: 'Doe',
         groupID: 0,
-        bannedList: []
+        bannedList: [],
     },
     {
         id: 2,
         first: 'Jane',
         last: 'Smith',
         groupID: 0,
-        bannedList: []
+        bannedList: [],
     },
     {
         id: 3,
         first: 'John',
         last: 'Jingle Heimershmidt',
         groupID: 0,
-        bannedList: []
+        bannedList: [],
     },
-    {
-        id: 4,
-        first: 'April',
-        last: 'Wang',
-        groupID: 0,
-        bannedList: []
-    }
 ];
 
-export default defaultStudents
+export default defaultStudents;
