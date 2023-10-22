@@ -66,7 +66,6 @@ const ClassRoster: FunctionComponent<{
                         <th>#</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Banned Partners</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,7 +99,6 @@ const ClassRoster: FunctionComponent<{
                                 onChange={handleLastName}
                             />
                         </td>
-                        <td></td>
                         <td>
                             <Button
                                 variant="outline-primary"
