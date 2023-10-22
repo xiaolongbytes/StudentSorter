@@ -12,7 +12,7 @@ const BannedPartnerModal: FunctionComponent<{
     onSave: (studentIDs: number[]) => void;
     onCancel: () => void;
 }> = ({ students, currentlyEditedStudent, isOpen, onSave, onCancel }) => {
-    const [selectedStudentIDs, setSelectedStudentIDs] = useState<number[]>([]);
+
 
     return (
         <Modal
@@ -38,7 +38,7 @@ const BannedPartnerModal: FunctionComponent<{
                     </thead>
                     <tbody>
                         {students.map((student, index) => (
-                            <SelectStudent key={index} student={student} />
+                            <SelectStudent key={index} student={student} currentlyEditedStudent={currentlyEditedStudent} />
                         ))}
                     </tbody>
                 </Table>
@@ -46,12 +46,6 @@ const BannedPartnerModal: FunctionComponent<{
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => onCancel()}>
                     Close
-                </Button>
-                <Button
-                    variant="primary"
-                    onClick={() => onSave(selectedStudentIDs)}
-                >
-                    Submit
                 </Button>
             </Modal.Footer>
         </Modal>
