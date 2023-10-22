@@ -14,7 +14,7 @@ const SeatStudent: FunctionComponent<{
 }> = ({ student, onDelete }) => {
     return (
         <tr>
-            <td>{student.id}</td>
+            <td>{student.id + 1}</td>
             <td>{student.first}</td>
             <td>{student.last}</td>
             <td>

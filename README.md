@@ -12,6 +12,13 @@ The results from both pages can be exported by the user.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Live Website:
+
+Play with the webapp [here, hosted on Vercel](https://student-sorter-delta.vercel.app/).
+
+-   You can test the "Choose File" and "Upload CSV" functionality with the "example_csv.csv" file provided in the "data" folder to start! Don't worry about deleting the default students provided, those will be cleared by importing new data.
+-   Or play around with the default students, add your own using the "Add Student" button, the webapp is your oyster!
+
 ## Installation/User Guide:
 
 First, verify that you have `npm` installed with

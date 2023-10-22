@@ -16,7 +16,7 @@ const Team: FunctionComponent<{
 
     return (
         <tr>
-            <td>{team.id}</td>
+            <td>{team.id + 1}</td>
             <td>
                 <ul>
                     {studentsInTeam.map((student, index) => (
