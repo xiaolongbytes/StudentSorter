@@ -19,6 +19,7 @@ const Student: FunctionComponent<{
             <td>{student.id}</td>
             <td>{student.first}</td>
             <td>{student.last}</td>
+            <td></td>
             <td>
                 <Stack direction="horizontal" gap={3}>
                     <Button

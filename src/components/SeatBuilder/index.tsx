@@ -1,4 +1,3 @@
-import RosterTable from '@/common/components/ClassRoster';
 import { StudentData } from '@/common/components/Student';
 import useStudents from '@/hooks/useStudents';
 import exportFromJSON from 'export-from-json';
@@ -13,6 +12,7 @@ import {
     Stack,
     Table,
 } from 'react-bootstrap';
+import SeatRosterTable from './SeatRosterTable';
 import SeatsUserInput from './SeatUserInput';
 import './style.module.css';
 
@@ -120,7 +120,7 @@ const SeatBuilder: React.FC = () => {
 
                 {/* Student Roster and Input Section */}
                 <Row>
-                    <RosterTable
+                    <SeatRosterTable
                         students={students}
                         deleteStudent={deleteStudent}
                         addStudent={addStudent}
